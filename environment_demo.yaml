@@ -1,0 +1,22 @@
+name: vggt-omega-demo
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10
+  - pytorch>=2.3.0
+  - torchvision>=0.18.0
+  - numpy<2
+  - pillow
+  - pip
+  - pip:
+    - -i https://pypi.tuna.tsinghua.edu.cn/simple
+    - gradio==5.50.0
+    - gradio-client==1.14.0
+    - opencv-python
+    - trimesh
+    - matplotlib
+    - scipy
+    - requests
+    - onnxruntime

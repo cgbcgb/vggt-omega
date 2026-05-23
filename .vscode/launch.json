@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "demo_gradio",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "demo_gradio",
+            "args": [
+                "--checkpoint",
+                "/root/workspace/data/vggt_omega_data/pth/vggt_omega_1b_512.pt",
+                "--image-resolution",
+                "512"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "/opt/conda/envs/vggt-omega-demo/bin/python"
+        },
+        {
+            "name": "demo_vggt_omega",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "demo_vggt_omega",
+            "args": [
+                "--checkpoint",
+                "/root/workspace/data/vggt_omega_data/pth/vggt_omega_1b_512.pt",
+                "--images",
+                "/root/workspace/data/vggt_omega_data/input_pictures/20260523-213343.png",
+                "/root/workspace/data/vggt_omega_data/input_pictures/20260523-213400.png",
+                "/root/workspace/data/vggt_omega_data/input_pictures/20260523-213407.png",
+                "/root/workspace/data/vggt_omega_data/input_pictures/20260523-213411.png",
+                "/root/workspace/data/vggt_omega_data/input_pictures/20260523-213414.png",
+                "--image-resolution",
+                "512",
+                "--output-dir",
+                "/root/workspace/data/vggt_omega_data/output/"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "/opt/conda/envs/vggt-omega/bin/python"
+        }
+    ]
+}
