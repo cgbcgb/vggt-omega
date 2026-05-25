@@ -58,6 +58,21 @@ def main():
 
     print(f"Saved {depth_np.shape[0]} depth maps to {output_dir}")
 
+    # Save depth confidence maps as colormapped PNGs
+    depth_conf_np = depth_conf.squeeze(0).cpu().numpy()  # (B, H, W)
+    conf_min, conf_max = depth_conf_np.min(), depth_conf_np.max()
+    print(f"depth_conf range: [{conf_min:.4f}, {conf_max:.4f}]")
+
+    for i in range(depth_conf_np.shape[0]):
+        c = depth_conf_np[i].copy()
+        c_min, c_max = c.min(), c.max()
+        c_norm = ((c - c_min) / (c_max - c_min + 1e-8) * 255).astype(np.uint8)
+        c_color = cv2.applyColorMap(c_norm, cv2.COLORMAP_TURBO)
+        out_path = os.path.join(output_dir, f"conf_{i:04d}.png")
+        cv2.imwrite(out_path, c_color)
+
+    print(f"Saved {depth_conf_np.shape[0]} confidence maps to {output_dir}")
+
     # Reconstruct 3D point cloud with RGB colors
     depth_map_np = depth.squeeze(0).cpu().numpy()  # (B, H, W, 1)
     images_np = predictions["images"].squeeze(0).cpu().numpy()  # (B, 3, H, W)
