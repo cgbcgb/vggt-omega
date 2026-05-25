@@ -83,8 +83,15 @@ def main():
     world_points = unproject_depth_map_to_point_map(depth_map_np, extrinsics_np, intrinsics_np)  # (B, H, W, 3)
 
     stride = 2
-    all_points = world_points[:, ::stride, ::stride].reshape(-1, 3)
-    all_colors = images_np[:, ::stride, ::stride].reshape(-1, 3)
+    conf_threshold = 9.0
+
+    all_points = world_points[:, ::stride, ::stride]  # (B, Hs, Ws, 3)
+    all_colors = images_np[:, ::stride, ::stride]     # (B, Hs, Ws, 3)
+    all_conf = depth_conf_np[:, ::stride, ::stride]   # (B, Hs, Ws)
+
+    conf_mask = all_conf > conf_threshold
+    all_points = all_points[conf_mask]
+    all_colors = all_colors[conf_mask]
 
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(all_points)
